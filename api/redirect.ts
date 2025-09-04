@@ -27,22 +27,50 @@ export default async function handler(request: Request) {
   if (pathname.startsWith('/articles/')) {
     try {
       const articlePath = pathname.replace('/articles/', '').replace(/\/$/, ''); // Remove trailing slash
-      const filePath = join(process.cwd(), 'articles', `${articlePath}.html`);
       
-      console.log(`Attempting to read file: ${filePath}`);
-      const content = await readFile(filePath, 'utf-8');
+      // Try multiple possible file locations for Vercel deployment
+      const possiblePaths = [
+        join(process.cwd(), 'articles', `${articlePath}.html`),
+        join(process.cwd(), 'dist', 'public', 'articles', `${articlePath}.html`),
+        join('/var/task', 'articles', `${articlePath}.html`),
+        join('/var/task', 'dist', 'public', 'articles', `${articlePath}.html`)
+      ];
       
-      return new Response(content, {
-        status: 200,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0'
+      console.log(`[REDIRECT] Looking for article: ${articlePath}`);
+      console.log(`[REDIRECT] PWD: ${process.cwd()}`);
+      console.log(`[REDIRECT] Vercel env: ${process.env.VERCEL}`);
+      
+      let content: string | null = null;
+      let foundPath: string | null = null;
+      
+      for (const filePath of possiblePaths) {
+        try {
+          console.log(`[REDIRECT] Trying article path: ${filePath}`);
+          content = await readFile(filePath, 'utf-8');
+          foundPath = filePath;
+          console.log(`[REDIRECT] Successfully read article from: ${filePath}`);
+          break;
+        } catch (err) {
+          console.log(`[REDIRECT] Failed to read from ${filePath}: ${err instanceof Error ? err.message : String(err)}`);
         }
-      });
+      }
+      
+      if (content) {
+        return new Response(content, {
+          status: 200,
+          headers: {
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
+      } else {
+        console.error(`[REDIRECT] Article file not found in any location: ${articlePath}`);
+        return new Response(`Article not found: ${pathname}`, { status: 404 });
+      }
     } catch (error) {
-      console.error(`Error reading article file: ${error}`);
+      console.error(`[REDIRECT] Error reading article file: ${error}`);
       return new Response(`Article not found: ${pathname}`, { status: 404 });
     }
   }
@@ -53,22 +81,50 @@ export default async function handler(request: Request) {
        pathname.includes('unleashing-gaming-dominance'))) {
     try {
       const romPath = pathname.replace('/roms/', '').replace(/\/$/, ''); // Remove trailing slash
-      const filePath = join(process.cwd(), 'roms', `${romPath}.html`);
       
-      console.log(`Attempting to read ROM file: ${filePath}`);
-      const content = await readFile(filePath, 'utf-8');
+      // Try multiple possible file locations for Vercel deployment
+      const possiblePaths = [
+        join(process.cwd(), 'roms', `${romPath}.html`),
+        join(process.cwd(), 'dist', 'public', 'roms', `${romPath}.html`),
+        join('/var/task', 'roms', `${romPath}.html`),
+        join('/var/task', 'dist', 'public', 'roms', `${romPath}.html`)
+      ];
       
-      return new Response(content, {
-        status: 200,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0'
+      console.log(`[REDIRECT] Looking for ROM article: ${romPath}`);
+      console.log(`[REDIRECT] PWD: ${process.cwd()}`);
+      console.log(`[REDIRECT] Vercel env: ${process.env.VERCEL}`);
+      
+      let content: string | null = null;
+      let foundPath: string | null = null;
+      
+      for (const filePath of possiblePaths) {
+        try {
+          console.log(`[REDIRECT] Trying ROM path: ${filePath}`);
+          content = await readFile(filePath, 'utf-8');
+          foundPath = filePath;
+          console.log(`[REDIRECT] Successfully read ROM article from: ${filePath}`);
+          break;
+        } catch (err) {
+          console.log(`[REDIRECT] Failed to read from ${filePath}: ${err instanceof Error ? err.message : String(err)}`);
         }
-      });
+      }
+      
+      if (content) {
+        return new Response(content, {
+          status: 200,
+          headers: {
+            'Content-Type': 'text/html; charset=utf-8',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
+      } else {
+        console.error(`[REDIRECT] ROM article file not found in any location: ${romPath}`);
+        return new Response(`ROM article not found: ${pathname}`, { status: 404 });
+      }
     } catch (error) {
-      console.error(`Error reading ROM file: ${error}`);
+      console.error(`[REDIRECT] Error reading ROM file: ${error}`);
       return new Response(`ROM article not found: ${pathname}`, { status: 404 });
     }
   }

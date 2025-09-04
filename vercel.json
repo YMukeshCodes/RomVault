@@ -28,32 +28,8 @@
       "destination": "/api/redirect"
     },
     {
-      "source": "/articles/discover-premium-escort-services-in-tuscany-with-paginelucirosse(/?)$",
-      "destination": "/articles/discover-premium-escort-services-in-tuscany-with-paginelucirosse.html"
-    },
-    {
-      "source": "/articles/explore-sexual-wellness-and-intimate-confidence-with-pleasurepoint(/?)$",
-      "destination": "/articles/explore-sexual-wellness-and-intimate-confidence-with-pleasurepoint.html"
-    },
-    {
-      "source": "/articles/betrebels-italia-la-nuova-frontiera-per-le-scommesse-sportive-e-il-gioco-da-casino-online(/?)$",
-      "destination": "/articles/betrebels-italia-la-nuova-frontiera-per-le-scommesse-sportive-e-il-gioco-da-casino-online.html"
-    },
-    {
-      "source": "/articles/discover-the-future-of-online-slots-with-pg-gaming(/?)$",
-      "destination": "/articles/discover-the-future-of-online-slots-with-pg-gaming.html"
-    },
-    {
-      "source": "/articles/discover-the-thrill-of-online-gaming-at-lodibet-the-philippines-top-choice-for-casino-entertainment(/?)$",
-      "destination": "/articles/discover-the-thrill-of-online-gaming-at-lodibet-the-philippines-top-choice-for-casino-entertainment.html"
-    },
-    {
-      "source": "/articles/wayang88-the-best-and-most-trusted-online-slot-site-for-big-wins(/?)$",
-      "destination": "/articles/wayang88-the-best-and-most-trusted-online-slot-site-for-big-wins.html"
-    },
-    {
-      "source": "/articles/hawk-gaming-the-philippines-biggest-online-casino-for-thrilling-fair-and-secure-play(/?)$",
-      "destination": "/articles/hawk-gaming-the-philippines-biggest-online-casino-for-thrilling-fair-and-secure-play.html"
+      "source": "/articles/(.*)",
+      "destination": "/api/redirect"
     },
     {
       "source": "/roms/([^/]+)/([^/]+)$",

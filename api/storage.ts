@@ -80,6 +80,7 @@ export class MemStorage implements IStorage {
       path.resolve(process.cwd(), "data"),
       path.resolve(__dirname, "..", "data"),
       "/var/task/data", // Vercel's deployment directory
+      "/var/task/dist/data", // Vercel with dist directory
       path.resolve(process.cwd(), "..", "data"), // One level up
       path.resolve(process.cwd(), "..", "..", "data"), // Two levels up
       path.resolve(__dirname, "..", "..", "data"), // Two levels up from __dirname
