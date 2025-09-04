@@ -3,7 +3,7 @@
   "outputDirectory": "dist/public",
   "functions": {
     "api/**/*.ts": {
-      "includeFiles": "data/**,api/storage.ts,articles/**,roms/**,public/articles/**,public/roms/**"
+      "includeFiles": "data/**,dist/data/**,api/storage.ts,articles/**,roms/**,public/articles/**,public/roms/**"
     }
   },
   "rewrites": [
